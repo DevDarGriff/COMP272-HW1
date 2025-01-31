@@ -215,33 +215,31 @@
           */
          public static int findLargestK(Stack<Integer> stack, int k) {
  
-             // YOUR CODE GOES HERE
+              // YOUR CODE GOES HERE
             if (stack == null || stack.isEmpty()) {
                 return -1;
             }
 
-             Stack<Integer> temp = new Stack<>();   //temp stack
-             int index = 0;                 //current index
-             int maxInd = 0;                //max index of k found        bottom -> top
-            
-             System.out.println();          //debug spacer
+             Stack<Integer> temp = new Stack<>();       //temp stack to hold values from orig. stack
+             int index = stack.size();                  //current index set = to stack's size
+             boolean found = false;                     //boolean flag
                     
-             while (!stack.isEmpty()) {     //while stack is not empty
-                int data = stack.pop();     //pop data from stack
-                //temp.push(data);            //push data into temp stack
-                index++;                    //passes test 12, fails 13; without fails 12
-                if (data == k) {            //if data & k are equal (data has been found)
-                    maxInd = index;        //set maxInd to the current index   
+             while (!stack.isEmpty() && !found) {       //while stack is not empty and 
+                int data = stack.pop();                 //pop data from stack
+                temp.push(data);                        //push data into temp stack
+                
+                if (data == k) {                        //if data from stack & k are equal
+                    found = true;                       //data has been found
                 }
-                temp.push(data);
-                index++;                    //update current index
+                
+                index--;                                //decrement current index
             }
 
-             while (!temp.isEmpty()) {      //put contents back into stack
+             while (!temp.isEmpty()) {                  //put contents back into stack
                 stack.push(temp.pop());
              }
-             System.out.println("maxInd: " + maxInd);
-             return maxInd - 1;
+             
+             return index;
          }
  
      }  // End class Stacks
